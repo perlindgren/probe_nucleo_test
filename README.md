@@ -1,9 +1,9 @@
-# Probe test for STMF401RE Nucleo
+# Probe test for F401RE Nucleo
 
 ## Setup
 
 - Attach Nucleo board to host
-- Make sure that no other programmer is attached to the host
+- Make sure that no other programmer is attached to the host (or that the Nucleo/stlink device appears first in the list of programmers, see below).
 
 ## Run
 
@@ -40,8 +40,8 @@ We exercise basic probing functionality of direct core access using `probe-rs`.
 ## Potential errors
 
 - connection errors (like time-outs will be reported)
-- if original memory content is max u32, then the program will panic (due wraparound) unless compiled in --release
+- if original memory content is max u32, then the program will panic (due wraparound checking by Rust) unless compiled in --release
 
 ## Licence
 
-Free for all
+Free for all.
