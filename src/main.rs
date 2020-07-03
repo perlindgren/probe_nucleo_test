@@ -23,9 +23,9 @@ fn probe_test() -> Result<(), Error> {
 
     println!("speed_khz {}", probe.speed_khz());
 
-    probe.set_speed(1000)?;
+    // probe.set_speed(1000)?;
 
-    println!("new speed_khz {}", probe.speed_khz());
+    // println!("new speed_khz {}", probe.speed_khz());
 
     println!("has dap {}", probe.has_dap_interface());
 
