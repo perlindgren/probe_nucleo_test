@@ -1,13 +1,24 @@
-# Probe test for F401RE Nucleo
+# Probe test for SAME54 Xplained-pro
 
 ## Setup
 
-- Attach Nucleo board to host
-- Make sure that no other programmer is attached to the host (or that the Nucleo/stlink device appears first in the list of programmers, see below).
+- Attach Xplaiened-pro, EDBG connector to host (power only usb-cable), or power the board externally
+- Attach the J-link swd programmer to the Xplained pro board and host
+- Make sure that no other programmer is attached to the host (or that the Jlink device appears first in the list of programmers, see below).
 
 ## Run
 
 ``` shell
+> lsusb
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 001 Device 002: ID 0cf3:e300 Qualcomm Atheros Communications
+Bus 001 Device 015: ID 1366:0101 SEGGER J-Link PLUS
+Bus 001 Device 003: ID 0c45:6713 Microdia Integrated_Webcam_HD
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+```
+
+Here we see that the SEGGER Device is the only programmer.
+
 > cargo run
    Compiling probe_connect v0.1.0 (/home/pln/rust/grepit/st/probe_connect)
     Finished dev [unoptimized + debuginfo] target(s) in 1.76s
@@ -25,6 +36,7 @@ new content written
 read buff @0x2000_0000
 [65541, 260, 167772164, 50462980, 117835016, 2316, 4, 4]
 ```
+
 
 ## What is happening?
 
