@@ -11,14 +11,14 @@ fn probe_test() -> Result<(), Error> {
     println!("probe opened");
 
     // Attach to a chip.
-    let mut session = probe.attach("STM32F401RETx")?;
+    let mut session = probe.attach("ATSAME54P20A")?;
 
     println!("probe attached");
 
     // Select a core.
     let mut core = session.core(0).unwrap();
 
-    core.reset_and_halt(std::time::Duration::from_millis(10))?;
+    core.reset_and_halt()?;
 
     println!("core halted {:?}", core.core_halted());
     let reg = core.registers();
