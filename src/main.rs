@@ -6,51 +6,51 @@ fn probe_test() -> Result<(), Error> {
     println!("probes : {:?}", probes);
 
     // Use the first probe found.
-    let mut probe = probes[0].open().unwrap();
+    let probe = probes[0].open()?;
+
+    println!("probe opened");
 
     // Attach to a chip.
-    let mut session = probe.attach("STM32F401RETx").unwrap();
+    let mut session = probe.attach("STM32F401RETx")?;
+
+    println!("probe attached");
 
     // Select a core.
     let mut core = session.core(0).unwrap();
 
-    core.reset_and_halt(std::time::Duration::from_millis(10))
-        .unwrap();
+    core.reset_and_halt(std::time::Duration::from_millis(10))?;
 
     println!("core halted {:?}", core.core_halted());
     let reg = core.registers();
-    // println!("registers {:?}", registers);
+
+    // individual registers are accessed by functions
     let pc = reg.program_counter();
+    println!("pc {:#010X}", core.read_core_reg(pc)?);
 
-    println!("pc {:#010X}", core.read_core_reg(pc).unwrap());
-
-    // Read a block of 50 32 bit words.
-    let mut buff = [1234u32; 50];
+    // Read a block of 8 32 bit words.
+    let mut buff = [1234u32; 8];
     core.read_32(0x2000_0000, &mut buff).unwrap();
 
-    println!("buff {:?}", &buff[0..7]);
+    println!("read buff @0x2000_0000\n{:?}", buff);
 
-    // // Read a single 32 bit word.
-    // let word = core.read_word_32(0x2000_0000)?;
+    println!("increment each word by 1");
 
-    // Writing is just as simple.
-    let buff = [1234u32; 50];
+    // increment the content by 1;
+    for i in buff.iter_mut() {
+        *i += 1;
+    }
+
     core.write_32(0x2000_0000, &buff)?;
+    println!("new content written");
 
-    // Read a block of 50 32 bit words.
-    let mut buff = [1234u32; 50];
-    core.read_32(0x2000_0000, &mut buff).unwrap();
+    core.read_32(0x2000_0000, &mut buff)?;
 
-    println!("buff {:?}", &buff[0..7]);
-
-    // // of course we can also write 8bit words.
-    // let buff = [0u8; 50];
-    // core.write_8(0x2000_0000, &buff)?;
+    println!("read buff @0x2000_0000\n{:?}", buff);
 
     Ok(())
 }
 
 fn main() {
-    println!("Hello, world!");
+    println!("Probe test for nucleo F401RE");
     probe_test().unwrap();
 }
