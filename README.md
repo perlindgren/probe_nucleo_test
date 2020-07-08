@@ -1,29 +1,29 @@
-# Probe test for F401RE Nucleo
+# Probe test for ATSAME54 Xlpained pro
 
 ## Setup
 
-- Attach Nucleo board to host
-- Make sure that no other programmer is attached to the host (or that the Nucleo/stlink device appears first in the list of programmers, see below).
+- Attach ATSAME board to host
+- Make sure that no other programmer is attached to the host (or that the EDBG device appears first in the list of programmers, see below).
 
 ## Run
 
 ``` shell
 > cargo run
    Compiling probe_connect v0.1.0 (/home/pln/rust/grepit/st/probe_connect)
-    Finished dev [unoptimized + debuginfo] target(s) in 1.76s
+    Finished dev [unoptimized + debuginfo] target(s) in 1.92s
      Running `target/debug/probe_connect`
-Probe test for nucleo F401RE
-probes : [STLink V2-1 (VID: 0483, PID: 374b, Serial: 0676FF323535474B43024732, STLink)]
+Probe test for nucleo ATSAME54P20A
+probes : [EDBG CMSIS-DAP (VID: 03eb, PID: 2111, Serial: ATML2748051800005821, DAPLink)]
 probe opened
 probe attached
 core halted Ok(true)
-pc 0x08000DD2
+pc 0x00000734
 read buff @0x2000_0000
-[65540, 259, 167772163, 50462979, 117835015, 2315, 3, 3]
+[1008885, 3973531921, 1003994944, 4114365281, 554827778, 17590338, 536881184, 554696770]
 increment each word by 1
 new content written
 read buff @0x2000_0000
-[65541, 260, 167772164, 50462980, 117835016, 2316, 4, 4]
+[1008886, 3973531922, 1003994945, 4114365282, 554827779, 17590339, 536881185, 554696771]
 ```
 
 ## What is happening?
