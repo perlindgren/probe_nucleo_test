@@ -58,35 +58,36 @@ fn probe_test() -> Result<(), Error> {
 
     core.reset()?;
     println!("core reset");
+    println!("core halted {:?}", core.core_halted());
 
-    // core.reset_and_halt(std::time::Duration::from_millis(10))?;
+    core.reset_and_halt()?;
 
-    // println!("core halted {:?}", core.core_halted());
+    println!("core halted {:?}", core.core_halted());
     let reg = core.registers();
 
     // individual registers are accessed by functions
     let pc = reg.program_counter();
     println!("pc {:#010X}", core.read_core_reg(pc)?);
 
-    // // Read a block of 8 32 bit words.
-    // let mut buff = [1234u32; 8];
-    // core.read_32(0x2000_0000, &mut buff).unwrap();
+    // Read a block of 8 32 bit words.
+    let mut buff = [1234u32; 8];
+    core.read_32(0x2000_0000, &mut buff).unwrap();
 
-    // println!("read buff @0x2000_0000\n{:?}", buff);
+    println!("read buff @0x2000_0000\n{:?}", buff);
 
-    // println!("increment each word by 1");
+    println!("increment each word by 1");
 
-    // // increment the content by 1;
-    // for i in buff.iter_mut() {
-    //     *i += 1;
-    // }
+    // increment the content by 1;
+    for i in buff.iter_mut() {
+        *i += 1;
+    }
 
-    // core.write_32(0x2000_0000, &buff)?;
-    // println!("new content written");
+    core.write_32(0x2000_0000, &buff)?;
+    println!("new content written");
 
-    // core.read_32(0x2000_0000, &mut buff)?;
+    core.read_32(0x2000_0000, &mut buff)?;
 
-    // println!("read buff @0x2000_0000\n{:?}", buff);
+    println!("read buff @0x2000_0000\n{:?}", buff);
 
     Ok(())
 }
