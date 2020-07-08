@@ -51,6 +51,6 @@ fn probe_test() -> Result<(), Error> {
 }
 
 fn main() {
-    println!("Probe test for nucleo F401RE");
+    println!("Probe test for nucleo ATSAME54P20A");
     probe_test().unwrap();
 }
